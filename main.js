@@ -7,8 +7,9 @@ let selectedBoxes = { x: [], o: [] };
 let winner = '';
 
 selectOption.addEventListener('change', function () {
-    boxSize = this.value
-    reset()
+    boxSize = this.value;
+    reset();
+    
 })
 
 let findMatrix = (n) => {
@@ -51,7 +52,7 @@ let findAllSequence = (n = 3) => {
 }
 
 
-const sequances = findAllSequence(boxSize)
+
 
 const plot = () => {
     boxContainer.style.gridTemplateColumns = `repeat(${boxSize}, 1fr)`
@@ -81,6 +82,7 @@ const reset = () => {
 }
 
 const select = (index) => {
+    let sequances = findAllSequence(boxSize)
     const allSelectedBoxes = selectedBoxes.o.concat(selectedBoxes.x);
     if (!allSelectedBoxes.includes(index)) {
         if (moveOrder % 2) {
