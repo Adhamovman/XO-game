@@ -8,9 +8,10 @@ let winner = '';
 
 selectOption.addEventListener('change', function () {
     boxSize = this.value;
+    sequances = findAllSequence(boxSize);
     reset();
-    
 })
+
 
 let findMatrix = (n) => {
     let indexes = [];
@@ -37,13 +38,11 @@ let findAllSequence = (n = 3) => {
             arr2.push(matrix[i][j]);
 
         }
-        arr3.push(matrix[i][n - 1 - i]);
+        arr3.push(matrix[i][n - (i + 1)]);
         arr4.push(matrix[i][i]);
-
 
         allSeq.push(arr)
         allSeq.push(arr2)
-
     }
     allSeq.push(arr3)
     allSeq.push(arr4)
@@ -51,14 +50,15 @@ let findAllSequence = (n = 3) => {
     return allSeq
 }
 
+let sequances = findAllSequence(boxSize)
 
 
 
 const plot = () => {
-    boxContainer.style.gridTemplateColumns = `repeat(${boxSize}, 1fr)`
+    boxContainer.style.gridTemplateColumns = `repeat(${boxSize}, 1fr)`;
     boxContainer.innerHTML = '';
     for (let i = 0; i < boxSize ** 2; i++) {
-        boxContainer.innerHTML += `<button onclick="select(${i})">${selectedBoxes.x.includes(i) ? "X" : selectedBoxes.o.includes(i) ? "O" : ""}</button>`
+        boxContainer.innerHTML += `<button onclick="select(${i})">${selectedBoxes.x.includes(i) ? "X" : selectedBoxes.o.includes(i) ? "O" : ""}</button>`;
     }
 }
 plot()
@@ -78,11 +78,10 @@ const reset = () => {
     selectedBoxes.x = [];
     moveOrder = 0;
     plot()
-
 }
 
 const select = (index) => {
-    let sequances = findAllSequence(boxSize)
+
     const allSelectedBoxes = selectedBoxes.o.concat(selectedBoxes.x);
     if (!allSelectedBoxes.includes(index)) {
         if (moveOrder % 2) {
